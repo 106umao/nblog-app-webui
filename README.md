@@ -1,4 +1,4 @@
-# blog-app
+# tomato_work
 
 ## Project setup
 ```
