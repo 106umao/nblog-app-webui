@@ -2,12 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 import './assets/gobal.css'
-import axios from 'axios'
-import Header from './components/Header.vue'
-import LoginUserDesc from './components/private/LoginUserDesc.vue'
 import { pattern, timeago } from './assets/js/DateFormat.js'
+import axios from 'axios'
+import './plugins/PartSpareRegist.js' // 全局零件组件注册
 import './assets/iconfont/iconfont.css'
+import './assets/iconfont/iconfont.js'
+import './assets/iconfont/sybmbol.css'
+Vue.use(mavonEditor)
 Vue.prototype.$DateUtils = {}
 Vue.prototype.$DateUtils.pattern = pattern
 Vue.prototype.$DateUtils.timeago = timeago
@@ -43,8 +47,7 @@ axios.interceptors.request.use(function(config) {
   Vue.prototype.$message.error('服务器繁忙')
   console.log(err)
 })
-Vue.component('loginuser-desc', LoginUserDesc)
-Vue.component('myheader', Header)
+
 Vue.config.productionTip = false
 
 new Vue({

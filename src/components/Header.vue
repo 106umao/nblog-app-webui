@@ -2,52 +2,72 @@
 <div>
   <el-header class="header-color" height="61px">
     <el-row type="flex" justify="space-between">
-     <el-col :xs="20" :sm="0" :md="0" :lg="0" :xl="0">
-        <p style="font-size:20px;line-height:1;color:#409EFF">
-          <i class="el-icon-s-promotion"></i>番茄钟交流平台
-        </p>
+     <el-col :xs="20" :sm="12" :md="12" :lg="12" :xl="12">
+       <router-link to="/home">
+       <div>
+         <span id="homeicon">
+           <svg class="myicon" aria-hidden="true" >
+             <use xlink:href="#iconmao"></use>
+            </svg>
+         </span>
+          <p style="font-size:20px;display:inline;">
+              S T A C K
+          </p>
+       </div>
+       </router-link>
       </el-col>
-       <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6">
+       <el-col :xs="0" :sm="0" :md="3" :lg="4" :xl="4">
       </el-col>
-       <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6">
+       <el-col :xs="0" :sm="12" :md="10" :lg="8" :xl="8">
         <el-menu
-          @select="logout"
           class="el-menu-demo"
           mode="horizontal"
           :router="true"
           active-text-color="#409EFF"
         >
           <el-menu-item index="/home">首页</el-menu-item>
-          <el-submenu v-if="loginUser"  index="4">
-            <template slot="title">个人中心</template>
-            <el-menu-item index="/personalNoteList">{{loginUser.username}}</el-menu-item>
-            <el-menu-item v-if="loginUser.role!==0" index="/admin/user">后台管理</el-menu-item>
-          </el-submenu>
-          <el-submenu index="3" v-if="loginUser">
-            <template slot="title">创作</template>
-            <el-menu-item index="/edit/note/0">随手记</el-menu-item>
-            <el-menu-item index="/edit/note/2">短时番茄钟</el-menu-item>
-            <el-menu-item index="/edit/note/1">长时番茄钟</el-menu-item>
-          </el-submenu>
-          <el-menu-item v-if="loginUser" index="/logout">登出</el-menu-item>
+          <el-menu-item index="/archived">归档</el-menu-item>
+          <el-menu-item index="/editArticle">创作</el-menu-item>
+          <el-menu-item index="/edit/note/1">提问</el-menu-item>
+          <div v-if="loginUser">
+            <el-submenu   index="4">
+              <template slot="title">个人中心</template>
+              <el-menu-item index="/personalNoteList">{{loginUser.username}}</el-menu-item>
+            </el-submenu>
+
+            <el-menu-item index="/logout">登出</el-menu-item>
+          </div>
           <el-menu-item v-if="!loginUser" index="/login">登录</el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0">
+      <el-col :xs="2" :sm="0" :md="0" :lg="0" :xl="0">
         <div class="downshow">
-          <el-button  icon="el-icon-s-unfold"></el-button>
+          <el-button @click="act" type="text" icon="el-icon-s-unfold"></el-button>
         </div>
       </el-col>
     </el-row>
   </el-header>
    <el-collapse-transition>
-       <div v-show="dropDownShow" class="dropdown">
-            <ul class="dropdown-top-ul">
-              <li class="dropdown-top-li" v-for="(item, index) in leftMenuList" :key="index" @click="toActiveMenuItem(item)">{{ item.titleName }}</li>
-            </ul>
-            <ul class="dropdown-bottom-ul">
-              <li class="dropdown-bottom-li" v-for="(item, index) in rightMenuList" :key="index" @click="toActiveMenuItem(item)">{{ item.titleName }}</li>
-            </ul>
+       <div v-show="isDrop" class="dropdown">
+      <el-menu
+       :router="true"
+       background-color=""
+          active-text-color="#409EFF"
+      >
+        <el-menu-item index="/home">首页</el-menu-item>
+                  <el-menu-item index="/archived">归档</el-menu-item>
+                  <el-menu-item index="editArticle">创作</el-menu-item>
+                  <el-menu-item index="/edit/note/1">提问</el-menu-item>
+                  <div v-if="loginUser">
+                    <el-submenu   index="4">
+                      <template slot="title">我的</template>
+                      <el-menu-item index="/personalNoteList">{{loginUser.username}}</el-menu-item>
+                    </el-submenu>
+
+                    <el-menu-item index="/logout">登出</el-menu-item>
+                  </div>
+                  <el-menu-item v-if="!loginUser" index="/login">登录</el-menu-item>
+       </el-menu>
           </div>
   </el-collapse-transition>
 </div>
@@ -59,10 +79,14 @@ export default {
   data () {
     return {
       key: '',
-      loginUser: null
+      loginUser: null,
+      isDrop: false
     }
   },
   methods: {
+    act: function () {
+      this.isDrop = !this.isDrop
+    },
     keySearch: val => {
       console.log(val)
     },
@@ -81,6 +105,17 @@ export default {
 }
 </script>
 <style scoped>
+#homeicon{
+  top: 10px;
+  position: relative;
+}
+.myicon {
+   width: 40px;
+  height: 40px;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 .el-header {
   background-color: white;
   position: static;
@@ -94,5 +129,12 @@ export default {
   position: absolute;
   top:10px;
 
+}
+a{
+  color: black;
+  text-decoration:none;
+}
+.el-menu-item{
+  text-align:center;
 }
 </style>

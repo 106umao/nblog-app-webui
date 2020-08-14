@@ -6,48 +6,6 @@
   "description": "就是来偷图标的",
   "glyphs": [
     {
-      "icon_id": "650780",
-      "name": "活动",
-      "font_class": "huodong",
-      "unicode": "e635",
-      "unicode_decimal": 58933
-    },
-    {
-      "icon_id": "1330738",
-      "name": "活动",
-      "font_class": "huodong1",
-      "unicode": "e74a",
-      "unicode_decimal": 59210
-    },
-    {
-      "icon_id": "8820134",
-      "name": "关注",
-      "font_class": "guanzhu",
-      "unicode": "e6c4",
-      "unicode_decimal": 59076
-    },
-    {
-      "icon_id": "9626830",
-      "name": "帮助",
-      "font_class": "bangzhu",
-      "unicode": "e865",
-      "unicode_decimal": 59493
-    },
-    {
-      "icon_id": "15097058",
-      "name": "关注",
-      "font_class": "guanzhu1",
-      "unicode": "e687",
-      "unicode_decimal": 59015
-    },
-    {
-      "icon_id": "15633533",
-      "name": "活动",
-      "font_class": "huodong2",
-      "unicode": "e6dd",
-      "unicode_decimal": 59101
-    },
-    {
       "icon_id": "1166750",
       "name": "企鹅",
       "font_class": "qie",

@@ -1,5 +1,12 @@
 import Vue from 'vue'
-import { Drawer, PageHeader, Tooltip, Backtop, Notification, MessageBox, TableColumn, Table, Option, DatePicker, Select, Dialog, Avatar, Pagination, Message, FormItem, Form, Breadcrumb, BreadcrumbItem, TabPane, Tabs, Tag, Badge, Image, Footer, Card, Input, Button, Container, Header, Main, Menu, MenuItem, MenuItemGroup, Submenu, Row, Col } from 'element-ui'
+import 'element-ui/lib/theme-chalk/display.css'
+import 'element-ui/lib/theme-chalk/base.css'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+import { Divider, Link, InfiniteScroll, Radio, Drawer, PageHeader, Tooltip, Backtop, Notification, MessageBox, TableColumn, Table, Option, DatePicker, Select, Dialog, Avatar, Pagination, Message, FormItem, Form, Breadcrumb, BreadcrumbItem, TabPane, Tabs, Tag, Badge, Image, Footer, Card, Input, Button, Container, Header, Main, Menu, MenuItem, MenuItemGroup, Submenu, Row, Col } from 'element-ui'
+Vue.use(Divider)
+Vue.use(Link)
+Vue.use(InfiniteScroll)
+Vue.use(Radio)
 Vue.use(Drawer)
 Vue.use(PageHeader)
 Vue.use(Tooltip)
@@ -34,6 +41,7 @@ Vue.use(FormItem)
 Vue.use(Pagination)
 Vue.use(Avatar)
 Vue.use(Dialog)
+Vue.component(CollapseTransition.name, CollapseTransition)
 Vue.prototype.$message = Message
 Vue.prototype.$messageBox = MessageBox
 Vue.prototype.$notify = Notification

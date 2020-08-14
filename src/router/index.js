@@ -11,18 +11,14 @@ import PersonalNoteDetial from '../components/private/PersonalNoteDetial.vue'
 import PersonalNote from '../components/private/PersonalNote.vue'
 import EditNote from '../components/private/EditNote.vue'
 import MyFavorite from '../components/private/MyFavorite.vue'
-import AdminHome from '../components/admin/Home.vue'
-import User from '../components/admin/User.vue'
-import Note from '../components/admin/Note.vue'
-import Category from '../components/admin/Category.vue'
-import Comment from '../components/admin/Comment.vue'
-import Tag from '../components/admin/Tag.vue'
-import Upload from '../components/upload/Upload.vue'
+import Archived from '../components/Archived.vue'
+import EditArticle from '../components/EditArticle.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/upload', component: Upload },
+  { path: '/archived', component: Archived },
+  { path: '/editArticle', component: EditArticle },
   {
     path: '/home',
     component: Home,
@@ -58,18 +54,7 @@ const routes = [
     redirect: '/home'
   },
   { path: '/login', component: Login },
-  { path: '/register', component: Register },
-  {
-    path: '/admin/home',
-    component: AdminHome,
-    children: [
-      { path: '/admin/user', component: User },
-      { path: '/admin/tag', component: Tag },
-      { path: '/admin/comment', component: Comment },
-      { path: '/admin/category', component: Category },
-      { path: '/admin/note', component: Note }
-    ]
-  }
+  { path: '/register', component: Register }
 ]
 
 const router = new VueRouter({

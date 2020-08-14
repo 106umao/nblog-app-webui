@@ -3,14 +3,16 @@
     <el-col :xs="24" :span="18">
       <router-view></router-view>
     </el-col>
-    <el-col :xs="0" :span="6">
+    <el-col :xs="0" :span="6" >
       <loginuser-desc></loginuser-desc>
+      <operation-list></operation-list>
       <tag-group></tag-group>
+      <copyright-one id="right"></copyright-one>
     </el-col>
   </el-row>
 </template>
 <script>
-import TagGroup from './TagGroup.vue'
+import TagGroup from '../TagGroup.vue'
 export default {
   components: {
     'tag-group': TagGroup
@@ -93,5 +95,9 @@ export default {
 }
 .content-row {
   margin: 5px 0;
+}
+#right{
+  position: sticky;
+  top: 100px;
 }
 </style>

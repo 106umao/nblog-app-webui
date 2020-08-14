@@ -1,33 +1,7 @@
 <template>
-   <div>
-           <el-tabs v-model="currentNoteType" type="border-card" @tab-click="handleClick">
-        <el-tab-pane :layz="true" label="推荐" name="3">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item>首页</el-breadcrumb-item>
-            <el-breadcrumb-item>推荐</el-breadcrumb-item>
-          </el-breadcrumb>
-        </el-tab-pane>
-        <el-tab-pane :layz="true" label="随手记" name="0">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item>首页</el-breadcrumb-item>
-            <el-breadcrumb-item>随手记</el-breadcrumb-item>
-          </el-breadcrumb>
-        </el-tab-pane>
-        <el-tab-pane :layz="true" label="长番茄钟" name="1">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item>首页</el-breadcrumb-item>
-            <el-breadcrumb-item>长番茄钟</el-breadcrumb-item>
-          </el-breadcrumb>
-        </el-tab-pane>
-        <el-tab-pane :layz="true" label="短番茄钟" name="2">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item>首页</el-breadcrumb-item>
-            <el-breadcrumb-item>短番茄钟</el-breadcrumb-item>
-          </el-breadcrumb>
-        </el-tab-pane>
-      </el-tabs>
+   <div style="height:100%">
       <div class="grid-content bg-purple">
-        <el-card :key="index" v-for="(item, index) in noteList" class="box-card">
+        <el-card  shadow="hover" :key="index" v-for="(item, index) in noteList" class="box-card" >
           <el-row type="flex" class="note-card">
             <el-col :span="2">
               <a href="#">
@@ -67,33 +41,55 @@
             </el-col>
           </el-row>
         </el-card>
-        <el-pagination
-          @prev-click="pageChange"
-          @next-click="pageChange"
-          @current-change="pageChange"
-          :current-page="currentPage"
-          :page-size="pageSize"
-          layout="total, prev, pager, next, jumper"
-          :total="noteTotal"
-        ></el-pagination>
       </div>
+          <ul  v-infinite-scroll="load"
+            infinite-scroll-delay ="300"
+          >
+          </ul>
    </div>
+
 </template>
 <script>
 export default {
   name: 'note-list',
   data() {
     return {
+      count: 0,
       tag: null,
       currentPage: 1,
       pageSize: 20,
       currentNoteType: '3', // 0 随手记 1 长番茄钟 2短番茄钟 3 推荐
-      noteList: [],
+      noteList: [
+      ],
+      i: 0,
       noteTotal: 0
     }
   },
   // 在vue单文件组件中 箭头函数不的this为定义时赋值，不能指向vue实例，而function定义的函数则有
   methods: {
+    load () {
+      console.log(this.count)
+      this.noteList.push({
+        id: this.i++
+      })
+      this.noteList.push({
+        id: this.i++
+      })
+      this.noteList.push({
+        id: this.i++
+      })
+      this.noteList.push({
+        id: this.i++
+      })
+      this.noteList.push({
+        id: this.i++
+      })
+      this.noteList.push({
+        id: this.i++
+      })
+      console.log(this.noteList)
+      this.count += 2
+    },
     getNoteList() {
       return this.$http.get('note/page/' + this.currentNoteType, {
         params: {
@@ -145,22 +141,11 @@ export default {
 }
 </script>
 <style scoped>
-.el-container {
-  background-color: #f5f5f5;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-}
-.main {
-  width: 100%;
-  padding: 20px 8%;
-}
+
 .el-row {
   position: static;
 }
-.el-footer {
-  background-color: white;
-}
+
 .el-card {
   margin-bottom: 15px;
 }
@@ -168,9 +153,10 @@ export default {
   font-size: 12px;
 }
 .box-card {
-  margin: 0;
+  margin-bottom: 2px;
   padding: 0px;
   height: 88px;
+  cursor:pointer;
 }
 .avatar {
   width: 48px;
