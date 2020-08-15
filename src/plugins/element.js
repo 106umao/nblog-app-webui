@@ -2,7 +2,8 @@ import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/display.css'
 import 'element-ui/lib/theme-chalk/base.css'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-import { Divider, Link, InfiniteScroll, Radio, Drawer, PageHeader, Tooltip, Backtop, Notification, MessageBox, TableColumn, Table, Option, DatePicker, Select, Dialog, Avatar, Pagination, Message, FormItem, Form, Breadcrumb, BreadcrumbItem, TabPane, Tabs, Tag, Badge, Image, Footer, Card, Input, Button, Container, Header, Main, Menu, MenuItem, MenuItemGroup, Submenu, Row, Col } from 'element-ui'
+import { Autocomplete, Divider, Link, InfiniteScroll, Radio, Drawer, PageHeader, Tooltip, Backtop, Notification, MessageBox, TableColumn, Table, Option, DatePicker, Select, Dialog, Avatar, Pagination, Message, FormItem, Form, Breadcrumb, BreadcrumbItem, TabPane, Tabs, Tag, Badge, Image, Footer, Card, Input, Button, Container, Header, Main, Menu, MenuItem, MenuItemGroup, Submenu, Row, Col } from 'element-ui'
+Vue.use(Autocomplete)
 Vue.use(Divider)
 Vue.use(Link)
 Vue.use(InfiniteScroll)
