@@ -1,59 +1,26 @@
 <template>
   <div class="tag-group">
-    <el-tag
-    v-for="(item,index) in tagList"
-    :key="index"
-    :hit="true"
-    :type="randomTyper()"
-    :size="randomSize()"
-    :effect="randomEffect()"
-    @click="clickTag(item.id,item.content)"
-    >
-    {{item.content}}
-  </el-tag>
+    <div >
+      <el-tag
+        v-for="(item,index) in tagList"
+        :key="index"
+        :hit="true"
+        :type="randomTyper()"
+        :size="randomSize()"
+        :effect="randomEffect()"
+        @click="clickTag(item.id,item.content)"
+        >
+        {{item.content}}
+      </el-tag>
+    </div>
   </div>
 </template>
 <script>
 export default {
+  props: ['tagList'],
   name: 'tag-group',
   data() {
     return {
-      tagList: [
-        {
-          id: 1,
-          content: '编程'
-        },
-        {
-          id: 2,
-          content: 'Java'
-        },
-        {
-          id: 3,
-          content: '英语'
-        },
-        {
-          id: 4,
-          content: 'SOA'
-        },
-        {
-          id: 5,
-          content: 'WEB'
-        },
-        {
-          id: 6,
-          content: 'SpringBoot'
-        },
-        {
-          id: 7,
-          content: 'SpringSecurity'
-        }, {
-          id: 8,
-          content: 'Android'
-        }, {
-          id: 9,
-          content: 'Vert.x'
-        }
-      ]
     }
   },
   methods: {

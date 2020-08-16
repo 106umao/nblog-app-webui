@@ -1,6 +1,5 @@
 <template>
   <div style="margin:10px 2%;">
-
     <el-form :model="editForm" clearable="true" ref="editFormRef" :rules="editFormRules">
       <div style=" display: flex;flex-wrap:wrap-reverse;justify-content:space-between">
         <el-form-item  prop="tag">
@@ -18,7 +17,6 @@
               <el-button  class="el-button-group-b" icon="el-icon-check" type="primary" size="medium" plain @click="submitForm('editFormRef')">提交</el-button>
         </div>
       </div>
-
       <div role="tagPool">
         <el-tag
           :key="tag"
@@ -43,9 +41,6 @@
           </el-autocomplete>
           <el-button v-if="!inputVisible" class="button-new-tag" size="small" icon="el-icon-plus" @click="showInput">添加标签</el-button>
       </div>
-      <!-- <el-row type="flex">
-        <el-col></el-col>
-      </el-row> -->
       <el-form-item prop="title">
         <el-input :clearable="true" placeholder="请输入文章标题" v-model="editForm.title"></el-input>
       </el-form-item>
@@ -54,10 +49,8 @@
       </el-form-item>
     </el-form>
 </div>
-
 </template>
 <script>
-
 export default {
   name: 'edit-article',
   data() {

@@ -11,6 +11,7 @@ import './plugins/PartSpareRegist.js' // 全局零件组件注册
 import './assets/iconfont/iconfont.css'
 import './assets/iconfont/iconfont.js'
 import './assets/iconfont/sybmbol.css'
+
 Vue.use(mavonEditor)
 Vue.prototype.$DateUtils = {}
 Vue.prototype.$DateUtils.pattern = pattern

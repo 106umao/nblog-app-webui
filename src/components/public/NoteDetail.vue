@@ -1,80 +1,68 @@
 <template>
   <div v-show="noteD">
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
-    <div
-      style="{
-        height: 100%;
-        width: 100%;
-        background-color: #f2f5f6;
-        box-shadow: 0 0 6px rgba(0,0,0, .12);
-        text-align: center;
-        line-height: 40px;
-        color: #1989fa;
-      }"
-    >
-      UP
-    </div>
-  </el-backtop>
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <el-row>
-          <el-col>
-            <p style="font-size:20px">{{noteD.note.title}}</p>
-          </el-col>
-          <el-col>
-            <el-row :gutter="0" type="flex" justify="start" class="desc">
-              <el-col :span="2">作者 {{noteD.username}}</el-col>
-              <el-col :span="3">
-                类型 {{
-                noteD.note.contentType === 0
-                ? '随手记'
-                : noteD.note.contentType === 1
-                ? '长番茄钟'
-                : '短番茄钟'
-                }}
-              </el-col>
-              <el-col :span="5">发布 {{pattern(noteD.note.createTime)}}</el-col>
-              <el-col :span="3">分类 {{noteD.category}}</el-col>
-              <el-col :span="2">标签 {{noteD.tag}}</el-col>
-              <el-col
-                :span="5"
-                v-if="noteD.note.contentType!==0"
-              >开始 {{pattern(noteD.note.createTime)}}</el-col>
-              <el-col :span="5" v-if="noteD.note.contentType!==0">结束 {{pattern(noteD.note.endTime)}}</el-col>
-            </el-row>
-          </el-col>
-          <el-col>
-            <el-row type="flex" class="star-fill-count">
-              <el-col :span="3">已赞({{noteD.note.star}})</el-col>
-              <el-col :span="3">已回填({{noteD.backfillCount}})</el-col>
-              <el-col :span="3">已收藏({{noteD.favoriteCount}})</el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-        <el-button style="float: right; padding: 0px 0;margin:0 5px" type="text">
-          <i
-            @click="favoriteHandler(noteD.note.id,$event)"
-            :class="{iconfont:true, iconshoucangmiaobian:!isFavorite,iconshoucang:isFavorite}"
-          ></i>
-        </el-button>
-        <el-button style="float: right; padding: 0px 0" type="text">
-          <i
-            @click="backfillHandler('show',noteD.note.id,$event)"
-            :class="{iconfont:true, icondazhuanfa:!isBackfill,icondazhuanfadianji:isBackfill}"
-          ></i>
-        </el-button>
-        <el-button style="float: right; padding: 0px 0" type="text">
-          <i
-            @click="starHandler(noteD.note.id,$event)"
-            :class="{iconfont:true, icondadianzan:!isStar,icondayizan:isStar}"
-          ></i>
-        </el-button>
+      <div slot="header">
+        <p style="font-size:24px;margin-top:5px"><b>搜索思想——DFS and BFS（基础基础篇）</b></p>
+        <div style=" display: flex;justify-content:space-between">
+          <div style="display:flex;">
+             <el-avatar :size="38" :src="circleUrl"></el-avatar>
+              <div style="margin-left:10px">
+                <p style="font-size:15px;margin:0;cursor:pointer"><b>Linkcheng</b></p>
+                <p style="font-size:14px;margin:0">博客地址：www.bincjs.cns</p>
+              </div>
+          </div>
+          <div class="hidden-xs-only">
+            <el-button type="primary" size="medium" icon="el-icon-plus">关注他</el-button>
+          </div>
+        </div>
+          <p style="font-size: 14px;;color: #8590a6;cursor:pointer;display:inline-block">
+          469 人赞同了该文章
+        </p>
+        <mavon-editor previewBackground="#FFFFFF" boxShadowStyle="0px 0px" :subfield="false" :boxShadow="false" defaultOpen="preview" :toolbarsFlag="false" v-model="noteD.content"/>
+         <p v-if="!editOrPublish" style="font-size: 14px;;color: #8590a6;cursor:pointer;display:inline-block" @click="editOrPublish = !editOrPublish">
+          发布于 2017-01-23
+        </p>
+         <p v-if="editOrPublish" style="font-size: 14px;;color: #8590a6;cursor:pointer;display:inline-block" @click="editOrPublish = !editOrPublish">
+          编辑于 2019-04-20
+        </p>
+        <div style="position:relative;left:-5px">
+          <tag-group :tag-list="tagList" ></tag-group>
+        </div>
+        <div style=" display: flex;flex-wrap:wrap;justify-content:space-between">
+            <div style="padding-top:7px">
+              <el-button-group>
+                <el-button type="primary" size="small" icon="el-icon-caret-top">赞同 469</el-button>
+                <div style="position:relative;left:5px;display:inline-block">
+                    <el-button type="primary" size="small"><i class="el-icon-caret-bottom"></i></el-button>
+                </div>
+              </el-button-group>
+            </div>
+            <p style="font-size: 14px;color: #8590a6;cursor:pointer;;display:inline-block">
+              <span style="font-size: 14px;" class="iconfont iconicon_comment"> 44条评论</span>
+            </p>
+            <p style="font-size: 14px;color: #8590a6;cursor:pointer;;display:inline-block">
+              <span style="font-size: 14px;" class="iconfont iconfenxiang2"> 分享</span>
+            </p>
+            <p style="font-size: 14px;color: #8590a6;cursor:pointer;;display:inline-block">
+              <span style="font-size: 14px;" class="iconfont iconshoucang"> 收藏</span>
+            </p>
+            <p style="font-size: 14px;color: #8590a6;cursor:pointer;;display:inline-block">
+              <span style="font-size: 14px;" class="iconfont iconwenzhangzhuanzai"> 申请转载</span>
+            </p>
+            <p style="font-size: 14px;;color: #8590a6;cursor:pointer;;display:inline-block">
+              <span style="font-size: 14px;" class="iconfont iconjubao"> 举报</span>
+            </p>
+
+        </div>
+        <el-divider><p><b>本文所属以下分类</b></p></el-divider>
+        <div style="display:flex;">
+              <div style="margin-left:10px">
+                <p style="font-size:15px;margin:0;cursor:pointer"><b>算法理解与实现</b></p>
+                <p style="font-size:14px;margin:0">本人对于一些算法的见解</p>
+              </div>
+          </div>
       </div>
-      <div>{{noteD.note.content}}</div>
-    </el-card>
-    <div width="100%">
-      <el-card>
-        <el-form
+      <el-form
           :rules="commentFormRules"
           ref="commentFormRef"
           :model="commentForm"
@@ -118,39 +106,7 @@
             </el-row>
           </el-col>
         </el-row>
-      </el-card>
-    </div>
-    <el-dialog :destroy-on-close="true" title="社区回填" :visible.sync="backfillFormVisible  ">
-      <el-form :model="backfillForm" ref="backfillFormRef" :rules="backfillFormRules">
-        <el-form-item label="选择一个自己的分类" prop="category">
-          <el-select no-data-text="无分类" v-model="backfillForm.category" placeholder="请选择分类">
-            <el-option
-              :key="index"
-              v-for="(item,index) in customCategory"
-              :label="item.content"
-              :value="item.id"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item prop="actionTime" v-if="noteD.note.contentType!==0" label="选择时间">
-          <el-date-picker
-            v-model="backfillForm.actionTime"
-            format="yyyy-MM-dd HH:mm"
-            type="datetimerange"
-            :picker-options="noteD.note.contentType===1?pickerOptionsLong:pickerOptionsShort"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            align="right"
-            value-format="timestamp"
-          ></el-date-picker>
-        </el-form-item>
-      </el-form>
-      <div slot="footer">
-        <el-button @click="backfillFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="backfillHandler('submit',noteD.note.id,$event)">确 定</el-button>
-      </div>
-    </el-dialog>
+    </el-card>
   </div>
 </template>
 <script>
@@ -159,94 +115,29 @@ export default {
   name: 'noteDetail',
   data() {
     return {
-      pickerOptionsLong: {
-        shortcuts: [
-          {
-            text: '最近15天',
-            onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 15)
-              picker.$emit('pick', [start, end])
-            }
-          },
-          {
-            text: '最近30天',
-            onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end])
-            }
-          },
-          {
-            text: '最近90天月',
-            onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 90)
-              picker.$emit('pick', [start, end])
-            }
-          },
-          {
-            text: '最近180天月',
-            onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              end.setTime(start.getTime() + 3600 * 1000 * 24 * 180)
-              picker.$emit('pick', [start, end])
-            }
-          }
-        ]
-      },
-      pickerOptionsShort: {
-        shortcuts: [
-          {
-            text: '25分钟后',
-            onClick(picker) {
-              const end = new Date()
-              const start = new Date()
-              end.setTime(start.getTime() + 1500 * 1000)
-              picker.$emit('pick', [start, end])
-            }
-          }
-        ]
-      },
-      customCategory: [],
+      tagList: [
+        {
+          id: 1,
+          content: '编程'
+        },
+        {
+          id: 2,
+          content: 'Java'
+        },
+        {
+          id: 3,
+          content: '英语'
+        },
+        {
+          id: 4,
+          content: 'SOA'
+        }
+      ],
+      editOrPublish: true,
       loginUser: null,
-      backfillFormVisible: false,
-      backfillNoteId: '',
-      backfillForm: {
-        category: '',
-        actionTime: ''
-      },
-      backfillFormRules: {
-        category: [
-          { required: true, message: '没有分类就先去个人中心新建一个吧', trigger: ['blur', 'change'] }
-        ],
-        actionTime: [
-          {
-            validator: (rule, value, callback) => {
-              if (this.noteD.note.contentType === 1) {
-                if (value[1] - value[0] < 3600 * 1000 * 24 * 15) {
-                  return callback(new Error('长番茄钟不能短于15天'))
-                }
-              } else if (this.noteD.note.contentType === 2) {
-                if (value[1] - value[0] !== 1800 * 1000) {
-                  return callback(new Error('短番茄钟只能用标准的25分钟'))
-                }
-              }
-              return callback()
-            },
-            trigger: ['blur', 'change']
-          }
-        ]
-      },
-      isStar: false,
-      isBackfill: false,
-      isFavorite: false,
       commentList: [],
       noteD: {
+        content: '',
         note: {
           title: ''
         }
@@ -426,5 +317,10 @@ export default {
 .desc{
 
   font-size: 12px;
+}
+.el-avatar{
+  display: block;
+  cursor:pointer;
+  flex-shrink:0;
 }
 </style>

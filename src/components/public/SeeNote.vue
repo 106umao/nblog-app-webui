@@ -6,20 +6,53 @@
     <el-col :xs="0" :span="6" >
       <loginuser-desc></loginuser-desc>
       <operation-list></operation-list>
-      <tag-group></tag-group>
+      <tag-group :tag-list="tagList" margin="5px"></tag-group>
       <copyright-one id="right"></copyright-one>
     </el-col>
   </el-row>
 </template>
 <script>
-import TagGroup from '../TagGroup.vue'
+
 export default {
-  components: {
-    'tag-group': TagGroup
-  },
   name: 'note-list',
   data() {
     return {
+      tagList: [
+        {
+          id: 1,
+          content: '编程'
+        },
+        {
+          id: 2,
+          content: 'Java'
+        },
+        {
+          id: 3,
+          content: '英语'
+        },
+        {
+          id: 4,
+          content: 'SOA'
+        },
+        {
+          id: 5,
+          content: 'WEB'
+        },
+        {
+          id: 6,
+          content: 'SpringBoot'
+        },
+        {
+          id: 7,
+          content: 'SpringSecurity'
+        }, {
+          id: 8,
+          content: 'Android'
+        }, {
+          id: 9,
+          content: 'Vert.x'
+        }
+      ],
       currentPage: 1,
       pageSize: 20,
       currentNoteType: '3', // 0 随手记 1 长番茄钟 2短番茄钟 3 推荐
